@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <span>登录</span>
     <!-- 表单 -->
     <el-card class="login-card">
       <!-- 表单内容 -->
@@ -23,8 +22,8 @@
           <!-- 是否同意 -->
           <el-checkbox v-model="loginForm.checked" style="color:#000">
             我已阅读同意
-            <a href="#" style="color:blue">用户协议</a> 和
-            <a href="#" style="color:blue">隐私条款</a>
+            <a href="#" style="color:#409EFF">用户协议</a> 和
+            <a href="#" style="color:#409EFF">隐私条款</a>
           </el-checkbox>
         </el-form-item>
         <el-form-item>
@@ -73,12 +72,24 @@ export default {
   methods: {
     login () {
       // ref 可以获取dom对象  还可以获取组件对象实例
-      this.$refs.loginForm.validate((isOk) => {
-        if (isOk) {
-          // 表示校验通过
-        } else {
-          // 校验未通过
-        }
+      this.$refs.loginForm.validate().then(() => {
+        // 表示校验通过 登陆调用接口
+        this.$axios({
+          url: '/authorizations', // 请求地址
+          // params: {}, // url参数 参数辉拼接到url地址上 get
+          data: this.loginForm, // body请求体参数 常用于post/put/patch
+          method: 'post' // 请求类型 post/get/delete 默认get 可全大写可全小写
+        }).then(res => {
+          console.log(res.data)
+          window.localStorage.setItem('user-token', res.data.data.token)
+          this.$router.push('/home')
+        }).catch(() => {
+          // this.$message({
+          //   message: '用户名或密码错误',
+          //   type: 'error'
+          // })
+          this.$message.error('用户名或者密码错误')
+        })
       })
     }
   }
@@ -93,7 +104,7 @@ export default {
   justify-content: center;
   align-items: center;
   .login-card {
-    background-color: rgb(241, 66, 174);
+    background-color: rgb(138, 49, 104);
     width: 440px;
     height: 340px;
     border: 0px solid #000;

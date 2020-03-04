@@ -81,7 +81,7 @@ export default {
           method: 'post' // 请求类型 post/get/delete 默认get 可全大写可全小写
         }).then(res => {
           console.log(res.data)
-          window.localStorage.setItem('user-token', res.data.data.token)
+          window.localStorage.setItem('user-token', res.data.token)
           this.$router.push('/home')
         }).catch(() => {
           // this.$message({

@@ -1,6 +1,6 @@
 // 封装请求工具
 import axios from 'axios'
-
+import router from '@/router'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 
 // 请求拦截
@@ -18,5 +18,11 @@ axios.interceptors.response.use(function (response) {
   // 这里在相应拦截器中需要将数据返回
   return response.data ? response.data : {}
 },
-function () { })
+function (error) {
+  if (error.response.status === 401) {
+    localStorage.removeItem('user-token')
+    router.push('/login')
+  }
+  return Promise.reject(error)
+})
 export default axios

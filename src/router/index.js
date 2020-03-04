@@ -18,6 +18,9 @@ const routes = [
     children: [{
       path: '', // 二级路由 如果什么都不写表示默认组件
       component: Secondhome
+    }, {
+      path: '/home/comment',
+      component: () => import('@/views/comment')
     }]
   },
   {

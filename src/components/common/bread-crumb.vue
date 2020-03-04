@@ -1,5 +1,6 @@
 <template>
-  <el-breadcrumb separator=">">//选项分隔符 separator
+<!-- //选项分隔符 separator -->
+  <el-breadcrumb separator=">">
       <el-breadcrumb-item to="/home">首页</el-breadcrumb-item>
       <el-breadcrumb-item>
           <!-- 内容是动态的 -->

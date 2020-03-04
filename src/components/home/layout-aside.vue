@@ -1,12 +1,12 @@
 <template>
-  <div class="layout-aside">
+  <div class="layout-aside" >
       <!-- 图片 -->
       <div class="title">
-          <img src="../../assets/img/logo_admin.png" alt="">
+          <img src="../../assets/img/logoOW.png" alt="">
       </div>
       <!-- 菜单 -->
       <!-- 开启路由模式 router 在每一个菜单项配置index属性 -->
-      <el-menu router background-color="#545c64" text-color="#adafb5">
+      <el-menu  router background-color="#ff9c00" text-color="#000">
           <el-menu-item index='/home'>
               <i class="el-icon-s-home"></i>
               <span>首页</span>
@@ -24,7 +24,7 @@
           </el-submenu>
           <el-submenu index="2">
               <template slot="title" >
-                <i class="el-icon-s-grid"></i>
+                <i class="el-icon-view"></i>
                 <span>粉丝管理</span>
               </template>
 
@@ -43,13 +43,14 @@
 
 <style lang="less" scoped>
 .layout-aside {
-    width: 230px;
-    background-color: #444a58;
+    width: 200px;
+    background-color: #00a5e2;
     height: 100vh;
     .title {
         text-align: center;
         padding: 10px 0;
-        background-color: #000;
+        background-color: #00a5e2;
+        // #ff9c00 #00a5e2
         img {
             height: 35px;
             margin-right: 15px;

@@ -17,9 +17,14 @@ const routes = [
     component: Home,
     children: [{
       path: '', // 二级路由 如果什么都不写表示默认组件
-      component: Secondhome
+      component: Secondhome,
+      children: [{
+        path: '',
+        component: () => import('@/views/home/Thirdhome.vue')
+
+      }]
     }, {
-      path: '/home/comment',
+      path: 'comment',
       component: () => import('@/views/comment')
     }]
   },

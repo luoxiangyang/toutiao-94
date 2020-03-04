@@ -3,11 +3,11 @@
   <el-row align="middle" type="flex" class="layout-header">
       <el-col class="left" :span="12">
           <i class="el-icon-s-fold"></i>
-          <span>江苏传智播客</span>
+          <span>暴雪嘉年华</span>
       </el-col>
       <el-col class="right" :span="12">
           <el-row type="flex" justify="end" align="middle">
-            <img :src="userInfo.photo" alt="">
+            <img style="width:40px" :src="userInfo.photo" alt="">
             <!-- 下拉菜单 -->
             <el-dropdown trigger="click" @command="clickMenu">
                 <span>{{userInfo.name}}</span>

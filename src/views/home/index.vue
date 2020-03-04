@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <!-- 先左右布局 在上下 -->
-    <el-aside width="200px">
+    <el-aside style="width:200px;background-color:#00a5e2">
       <!-- <h1>左侧导航</h1> -->
       <layout-aside></layout-aside>
 

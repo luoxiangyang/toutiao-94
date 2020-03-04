@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/home'
 import Login from '@/views/login'
+import Secondhome from '../views/home/secondhome.vue'
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,11 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [{
+      path: '', // 二级路由 如果什么都不写表示默认组件
+      component: Secondhome
+    }]
   },
   {
     path: '/login',

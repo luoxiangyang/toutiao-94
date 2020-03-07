@@ -21,11 +21,16 @@ const routes = [
       children: [{
         path: '',
         component: () => import('@/views/home/Thirdhome.vue')
-
       }]
     }, {
       path: 'comment',
       component: () => import('@/views/comment')
+    }, {
+      path: 'material',
+      component: () => import('@/views/material')
+    }, {
+      path: 'articles',
+      component: () => import('@/views/articles')
     }]
   },
   {

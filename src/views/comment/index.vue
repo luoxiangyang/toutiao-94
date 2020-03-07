@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card v-loading="loading">
       <bread-crumb slot="header">
         <template slot="title">评论管理</template>
       </bread-crumb>
@@ -18,6 +18,16 @@
           </template>
         </el-table-column>
       </el-table>
+      <!-- 分页 -->
+      <el-row style="height:80px" type="flex" align="middle" justify="center">
+      <el-pagination
+       :total="page.total"
+       :current-page="page.currentPage"
+       :page-size="page.pageSize"
+       @current-change="changePage"
+        background layout="prev,pager, next" ></el-pagination>
+
+      </el-row>
   </el-card>
 </template>
 
@@ -25,18 +35,36 @@
 export default {
   data () {
     return {
-      list: []
+      page: {
+        total: 0, // 默认总数
+        currentPage: 1, // 默认页码
+        pageSize: 10
+      },
+      list: [],
+      loading: false // 控制遮罩层得显示或隐藏
     }
   },
   methods: {
+
+    changePage (newPage) {
+      // newpage是最新的切换页码
+      this.page.currentPage = newPage // 赋值最新页码
+      this.getComment()
+    },
     getComment () {
+      this.loading = true // 打开遮罩层
       this.$axios({
         url: '/articles',
+        // 接口不传入 页码参数 默认第一页
         params: {
-          response_type: 'comment'
+          response_type: 'comment',
+          page: this.page.currentPage,
+          per_page: this.page.pageSize
         }
       }).then(results => {
         this.list = results.data.results
+        this.page.total = results.data.total_count
+        this.loading = false // 请求关闭之后关闭遮罩层
       })
     },
     formatterBool (row, column, cellValue, index) {
@@ -51,7 +79,7 @@ export default {
           method: 'put',
           params: {
             // query参数
-            aricle_id: row.id
+            aricle_id: row.id.tostring() // 将bigNumber类型转化为字符串
           },
           data: {
             // body参数

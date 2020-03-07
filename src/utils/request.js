@@ -1,8 +1,13 @@
 // 封装请求工具
 import axios from 'axios'
 import router from '@/router'
+import JSONBig from 'json-bigint'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 
+// 对axios返回的数据进行处理
+axios.defaults.transformResponse = [function (data) {
+  return data ? JSONBig.parse(data) : {}
+}]
 // 请求拦截
 axios.interceptors.request.use(function (config) {
   // 成功执行第一个 有一个参数config  就是所有的axios的请求信息

@@ -7,7 +7,7 @@
       </el-col>
       <el-col class="right" :span="12">
           <el-row type="flex" justify="end" align="middle">
-            <img style="width:40px" :src="userInfo.photo" alt="">
+            <img class="ImgSize" :src="userInfo.photo" alt="">
             <!-- 下拉菜单 -->
             <el-dropdown trigger="click" @command="clickMenu">
                 <span>{{userInfo.name}}</span>
@@ -67,7 +67,9 @@ export default {
     }
     .right {
         img {
-            border-radius: 50%
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
         }
     }
 }

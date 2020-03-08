@@ -79,7 +79,7 @@ export default {
           method: 'put',
           params: {
             // query参数
-            aricle_id: row.id.tostring() // 将bigNumber类型转化为字符串
+            article_id: row.id.toString() // 将bigNumber类型转化为字符串
           },
           data: {
             // body参数

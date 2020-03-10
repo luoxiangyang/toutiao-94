@@ -49,8 +49,8 @@
       <el-row type="flex" justify="center" style="height:80px" align="middle">
         <el-pagination
         :current-page="page.currentPage"
-        :page-size="pageSize"
-        :total="total"
+        :page-size="page.pageSize"
+        :total="page.total"
         @current-change="changePage"
          background layout='prev,pager,next'>
 
@@ -163,7 +163,7 @@ export default {
         params
       }).then(result => {
         this.list = result.data.results // 获取文章
-        this.page.total = result.data.total.total_count
+        this.page.total = result.data.total_count
       })
     },
     getChannels () {

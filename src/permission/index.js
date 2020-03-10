@@ -1,6 +1,9 @@
 import router from '@/router'
-
+import progress from 'nprogress'
+import 'nprogress/nprogress.css'
 router.beforeEach(function (to, from, next) {
+  // 开启进度条
+  progress.start()
   // next()// 表示放过
   // next(false)表示全部不通过
   // next(地址) 表示去一个新地址
@@ -15,4 +18,8 @@ router.beforeEach(function (to, from, next) {
   } else {
     next()
   }
+})
+// 全局后置守卫关闭
+router.afterEach(() => {
+  progress.done()
 })

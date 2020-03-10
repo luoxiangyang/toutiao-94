@@ -10,16 +10,20 @@
               <el-input v-model="publishForm.title" style="width:60%"></el-input>
           </el-form-item>
           <el-form-item  label="内容" prop="content">
-              <el-input v-model="publishForm.content" placeholder="请输入内容" type="textarea" :rows="4"></el-input>
+              <quill-editor
+              style="height:300px" v-model="publishForm.content" placeholder="请输入内容" type="textarea" :rows="4"></quill-editor>
           </el-form-item>
-          <el-form-item  label="封面" prop="cover">
-              <el-radio-group v-model="publishForm.cover.type">
+          <el-form-item style="margin-top:120px"  label="封面" prop="cover">
+              <el-radio-group  v-model="publishForm.cover.type" @change="changeType">
+                <el-radio :label="0">无图</el-radio>
                   <el-radio :label="1">单图</el-radio>
                   <el-radio :label="3">三图</el-radio>
-                  <el-radio :label="0">无图</el-radio>
+
                   <el-radio :label="-1">自动</el-radio>
               </el-radio-group>
           </el-form-item>
+          <!-- 封面组件 props父传子 -->
+          <cover-image @selectTwoImg="receiveImg" :list="publishForm.cover.images"></cover-image>
           <el-form-item label="频道" prop="channel_id">
               <el-select placeholder="请选择频道" v-model="publishForm.channel_id">
                   <el-option v-for="item in channels" :label="item.name" :value="item.id" :key="item.id"></el-option>
@@ -57,9 +61,41 @@ export default {
         content: [{ required: true, message: '文章内容不能为空' }],
         channel_id: [{ required: true, message: '频道内容不能为空' }]
       }
+
+    }
+  },
+  watch: {
+    $route: function (to, from) {
+      // 根据articleId来编辑数据 点击修改再点击发布文章的情况
+      if (to.params.articleId) {
+        this.getArticleById(to.params.articleId) // 获取文章数据
+      } else {
+        this.publishForm = {
+          title: '',
+          content: '',
+          cover: {
+            type: 0, // 0 无图 -1自动 2有图 3三途
+            images: []
+          }
+        }
+      }
     }
   },
   methods: {
+    receiveImg (url, index) {
+      // splice()删除替换元素 参数：索引；要删除的个数；替换的个数
+
+      this.publishForm.cover.images.splice(index, 1, url)
+    },
+    changeType () {
+      if (this.publishForm.cover.type === 1) {
+        this.publishForm.cover.images = ['']
+      } else if (this.publishForm.cover.type === 3) {
+        this.publishForm.cover.images = ['', '', '']
+      } else {
+        this.publishForm.cover.images = []
+      }
+    },
     getArticleById (id) {
       this.$axios({
         url: `/articles/${id}`

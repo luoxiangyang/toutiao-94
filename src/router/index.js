@@ -8,6 +8,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*', // 匹配任何找不到组件的路由
+    component: () => import('@/views/404')
+  },
+  {
     path: '/',
     redirect: '/home'// 跳转到home组件
   },
@@ -34,6 +38,9 @@ const routes = [
     }, {
       path: 'publish/:articleId?',
       component: () => import('@/views/publish')
+    }, {
+      path: 'account',
+      component: () => import('@/views/account')
     }]
   },
   {

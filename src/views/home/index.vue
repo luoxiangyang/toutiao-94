@@ -1,9 +1,9 @@
 <template>
   <el-container>
     <!-- 先左右布局 在上下 -->
-    <el-aside style="width:200px;background-color:#00a5e2">
+    <el-aside :style="{width:collapse ? '64px' : '200px'}" style="transition:all 0.5s; width:200px;background-color:#00a5e2">
       <!-- <h1>左侧导航</h1> -->
-      <layout-aside></layout-aside>
+      <layout-aside :collapse="collapse"></layout-aside>
 
     </el-aside>
     <el-container>
@@ -19,7 +19,19 @@
   </el-container>
 </template>
 <script>
-
+import eventBus from '@/utils/eventBus'
+export default {
+  data () {
+    return {
+      collapse: false
+    }
+  },
+  created () {
+    eventBus.$on('changeCollapse', () => {
+      this.collapse = !this.collapse
+    })
+  }
+}
 </script>
 <style>
 

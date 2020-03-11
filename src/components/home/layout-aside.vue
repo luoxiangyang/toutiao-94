@@ -2,11 +2,11 @@
   <div class="layout-aside" >
       <!-- 图片 -->
       <div class="title">
-          <img src="../../assets/img/logoOW.png" alt="">
+          <img :src="collapse ? smallImg : bigImg" alt="">
       </div>
       <!-- 菜单 -->
       <!-- 开启路由模式 router 在每一个菜单项配置index属性 -->
-      <el-menu  router background-color="#ff9c00" text-color="#000">
+      <el-menu :collapse="collapse" router background-color="#ff9c00" text-color="#000">
           <el-menu-item index='/home'>
               <i class="el-icon-s-home"></i>
               <span>首页</span>
@@ -40,10 +40,20 @@
       </el-menu>
   </div>
 </template>
-
+<script>
+export default {
+  props: ['collapse'],
+  data () {
+    return {
+      bigImg: require('../../assets/img/logoOW.png'),
+      smallImg: require('../../assets/img/logoOW2.jpg')
+    }
+  }
+}
+</script>
 <style lang="less" scoped>
 .layout-aside {
-    width: 200px;
+    // width: 200px;
     background-color: #00a5e2;
     height: 100vh;
     .title {
@@ -53,14 +63,12 @@
         // #ff9c00 #00a5e2
         img {
             height: 35px;
-            margin-right: 15px;
+
         }
     }
     .el-menu {
         border-right: 0px;
     }
-    .el-aside {
-        width: 230px;
-    }
+
 }
 </style>

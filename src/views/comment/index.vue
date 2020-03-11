@@ -32,6 +32,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -51,9 +52,10 @@ export default {
       this.page.currentPage = newPage // 赋值最新页码
       this.getComment()
     },
-    getComment () {
+
+    async getComment () {
       this.loading = true // 打开遮罩层
-      this.$axios({
+      const results = await this.$axios({
         url: '/articles',
         // 接口不传入 页码参数 默认第一页
         params: {
@@ -61,11 +63,10 @@ export default {
           page: this.page.currentPage,
           per_page: this.page.pageSize
         }
-      }).then(results => {
-        this.list = results.data.results
-        this.page.total = results.data.total_count
-        this.loading = false // 请求关闭之后关闭遮罩层
       })
+      this.list = results.data.results
+      this.page.total = results.data.total_count
+      this.loading = false // 请求关闭之后关闭遮罩层
     },
     formatterBool (row, column, cellValue, index) {
       return cellValue ? '正常' : '关闭'

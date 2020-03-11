@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import eventBus from '@/utils/eventBus'
 export default {
   data () {
     return {
@@ -57,6 +58,7 @@ export default {
         data
       }).then(result => {
         this.formData.photo = result.data.photo
+        eventBus.$emit('selectinfo')
       })
     },
     getUserinfo () {
@@ -74,6 +76,7 @@ export default {
           data: this.formData
         }).then(result => {
           this.$message.success('保存成功')
+          eventBus.$emit('selectinfo')
         }).catch(result => {
           this.$message.error('保存失败')
         })
